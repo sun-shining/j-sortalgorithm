@@ -20,7 +20,7 @@ public class InsertionSort implements SortFlagInterface{
 //    }
 
     /**
-     * 优化后的插入排序，内层循环不在发现元素位置不对时就就行交换，而是
+     * 优化后的插入排序，内层循环不在发现元素位置不对时就就行交换，而是在内层循环寻找array[i]合适的位置，这样省去2次交换
      * @param array
      * @param n
      */

@@ -85,7 +85,7 @@ public class SortUtils
         long startTime = System.currentTimeMillis();
         sortFlagInterface.sort(array, n);
         long endTime = System.currentTimeMillis();
-//        SortUtils.printArray(array);
+        SortUtils.printArray(array);
         System.out.println("该排序算法运行时间为：" + (endTime-startTime));
     }
 }
