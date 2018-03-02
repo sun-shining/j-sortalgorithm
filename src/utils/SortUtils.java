@@ -38,14 +38,14 @@ public class SortUtils
      * @param rangeR 数组内元素结束范围
      * @return 一个包含n个元素的数组
      */
-    public static Integer[] generateRandomArray(int n, int rangeL, int rangeR){
-        Integer[] array = new Integer[n];
+    public static int[] generateRandomArray(int n, int rangeL, int rangeR){
+        int[] array = new int[n];
 
         for (int i = 0; i < n ; i++) {
             Random random = new Random();
 
             int s = random.nextInt(rangeR)%(rangeR-rangeL+1) + rangeL;
-            array[i] = new Integer(s);
+            array[i] = s;
         }
         return array;
     }
@@ -73,5 +73,19 @@ public class SortUtils
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + "  ");
         }
+    }
+
+    /**
+     * 计算算法运行水岸
+     * @param sortFlagInterface
+     * @param array
+     * @param n
+     */
+    public static  void calSortTime(SortFlagInterface sortFlagInterface, int array[], int n){
+        long startTime = System.currentTimeMillis();
+        sortFlagInterface.sort(array, n);
+        long endTime = System.currentTimeMillis();
+//        SortUtils.printArray(array);
+        System.out.println("该排序算法运行时间为：" + (endTime-startTime));
     }
 }

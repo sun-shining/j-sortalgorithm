@@ -1,18 +1,19 @@
 package selectionsort;
 
+import utils.SortFlagInterface;
 import utils.SortUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SelectionSort {
+public class SelectionSort implements SortFlagInterface{
 
     /**
      * 选择排序算法
      * @param arry 待排序数组
      * @param n 数组大小
      */
-    public static <T> void selectionSort(T arry[], int n){
+    public   void sort(int arry[], int n){
 
         for (int i = 0; i < n; i++) {
             int minIndex = i;
@@ -21,7 +22,7 @@ public class SelectionSort {
                     minIndex = j;
                 }
             }
-            SortUtils.swap(i, minIndex, arry);
+            SortUtils.swap4Int(i, minIndex, arry);
         }
     }
 
@@ -39,9 +40,9 @@ public class SelectionSort {
 
     public static void main(String[] args) {
 //        Integer a[] ={10,9,8,7,6,5,4,3,2,1};
-        Integer a[] = SortUtils.generateRandomArray(10,0,10);
+        int a[] = SortUtils.generateRandomArray(10,0,10);
 //        String[] a = {"D","C","B","A"};
-        selectionSort(a,10);
+        new SelectionSort().sort(a,10);
         SortUtils.printArray(a);
 
     }
