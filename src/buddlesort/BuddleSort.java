@@ -5,16 +5,21 @@ import utils.SortUtils;
 
 public class BuddleSort {
 
-//    public static void sort(int[] array) {
-//        int i,j,temp, n = array.length;
-//        for (i = 0; i < n-1; i++) {
-//            for (j = 0; j < n-1-i && array[j] > array[j+1]; j++) {
-//                temp = array[j];
-//                array[j] = array[j + 1];
-//                array[j + 1] = temp;
-//            }
-//        }
-//    }
+    /**
+     * 这种写法错在，当前两个元素有序后，后面的排序因为循环第二个条件永远为false，一直不进循环体
+     * for循环条件不满足，循环就结束了
+     * @param array
+     */
+    public static void sort2(int[] array) {
+        int i,j,temp, n = array.length;
+        for (i = 0; i < n-1; i++) {
+            for (j = 0; j < n-1-i && array[j] > array[j+1]; j++) {
+                temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+        }
+    }
 
     public static void sort(int[] array) {
         int i,j,temp, n = array.length;
