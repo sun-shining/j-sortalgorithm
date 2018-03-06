@@ -39,6 +39,17 @@ public class InsertionSort implements SortFlagInterface{
         }
     }
 
+    public void sort(int[] array, int l, int r) {
+        for (int i = l; i < r; i++) {
+            int temp = array[i];
+            int j;
+            for (j = i; j > 0  && array[j-1] > temp; j++) {
+                    array[j] = array[j-1];
+            }
+            array[j] = temp;
+        }
+    }
+
     public static void main(String[] args) {
         int a[] = SortUtils.generateRandomIntArray(50000, 0, 100000);
 //        new InsertionSort().sort(a, 50000);
