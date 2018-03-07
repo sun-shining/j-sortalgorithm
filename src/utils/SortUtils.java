@@ -39,13 +39,20 @@ public class SortUtils
      * @return 一个包含n个元素的数组
      */
     public static int[] generateRandomArray(int n, int rangeL, int rangeR){
-        int[] array = new int[n];
+        /*int[] array = new int[n];
 
         for (int i = 0; i < n ; i++) {
             Random random = new Random();
 
             int s = random.nextInt(rangeR)%(rangeR-rangeL+1) + rangeL;
             array[i] = s;
+        }
+        return array;*/
+
+        assert rangeL <= rangeR;
+        int array[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = (int)(Math.random()*(rangeR-rangeL+1)+rangeL);
         }
         return array;
     }
@@ -76,7 +83,7 @@ public class SortUtils
     }
 
     /**
-     * 计算算法运行水岸
+     * 计算算法运行时间
      * @param sortFlagInterface
      * @param array
      * @param n
@@ -87,5 +94,19 @@ public class SortUtils
         long endTime = System.currentTimeMillis();
 //        SortUtils.printArray(array);
         System.out.println("该排序算法运行时间为：" + (endTime-startTime));
+    }
+
+    /**
+     *  判断数组是否已经排好序啦
+     * @param array
+     * @param n 数组内元素个数
+     * @return
+     */
+    public static boolean isSorted(int[] array, int n){
+        for (int i = 0; i < n-1; i++) {
+            if (array[i] > array[i+1])
+                return false;
+        }
+        return true;
     }
 }
