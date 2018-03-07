@@ -39,11 +39,11 @@ public class InsertionSort implements SortFlagInterface{
         }
     }
 
-    public void sort(int[] array, int l, int r) {
-        for (int i = l; i < r; i++) {
+    public static void sort(int[] array, int l, int r) {
+        for (int i = l+1; i <= r; i++) {
             int temp = array[i];
             int j;
-            for (j = i; j > 0  && array[j-1] > temp; j++) {
+            for (j = i; j > l  && array[j-1] > temp; j--) {
                     array[j] = array[j-1];
             }
             array[j] = temp;
