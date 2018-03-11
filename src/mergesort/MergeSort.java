@@ -9,7 +9,7 @@ public class MergeSort {
         int[] array = SortUtils.generateRandomArray(10, 1, 100);
         SortUtils.printArray(array);
         long start = System.nanoTime();
-        mergeSort(array, 10);
+        sort(array, 10);
         long end = System.nanoTime();
         System.out.println("时间为 ：" + (end-start));
         SortUtils.printArray(array);
@@ -22,7 +22,7 @@ public class MergeSort {
      * @param array
      * @param n
      */
-    public static void mergeSort(int array[], int n){
+    public static void sort(int array[], int n){
         mergeSortFromL2R(array, 0 , n-1);
     }
 
