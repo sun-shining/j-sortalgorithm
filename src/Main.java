@@ -2,6 +2,7 @@ import java.lang.management.ManagementFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+//测试测试jinfo命令修改虚拟机参数，以 PrintGC PrintGCDetails PrintGCTimeStamp 来测试de
 public class Main {
     //-Xmx20m -Xms20m -Xmn2m
     public static void main(String[] args) {

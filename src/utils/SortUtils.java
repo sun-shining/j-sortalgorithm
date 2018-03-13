@@ -69,6 +69,15 @@ public class SortUtils
         return array;
     }
 
+    public static Integer[] generateRandomItegerArray(int n , int rangL, int rangR) {
+        Integer[] a = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            Random random = new Random();
+            a[i] = new Integer(random.nextInt(rangR)%(rangR-rangL+1)+rangL);
+        }
+        return a;
+    }
+
     //打印数组
     public static void printArray(Integer[] array){
         for (int i = 0; i < array.length; i++) {

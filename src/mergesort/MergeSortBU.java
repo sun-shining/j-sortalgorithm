@@ -12,7 +12,7 @@ public class MergeSortBU {
         //第一次考察一个元素，第二次考察2个，第三次考察4个
         for (int sz = 1; sz < n; sz+=sz) {
             for (int i = 0; i+sz < n; i+=sz+sz) {
-                //对于 array[mid] <= array[mid+1] 的情况，不就行merge
+                //对于 array[mid] <= array[mid+1] 的情况，不进行merge
                 if (array[i+sz-1] > array[i+sz])
                      MergeSort.mergeTwoArray2(array, i,i+sz-1, Math.min(i+sz+sz-1 ,n-1));
             }
