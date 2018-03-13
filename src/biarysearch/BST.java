@@ -3,6 +3,7 @@ package biarysearch;
 import java.util.LinkedList;
 
 //二分搜索树
+//左孩子小于父亲，右孩子大于父亲，存在深度和广度优先遍历
 public class BST<Key extends Comparable<Key>, Value> {
 
     private class Node {
@@ -14,6 +15,13 @@ public class BST<Key extends Comparable<Key>, Value> {
             this.key = key;
             this.value = value;
             left = right = null;
+        }
+
+        public Node(Node node){
+            this.key = node.key;
+            this.value = node.value;
+            this.left = node.left;
+            this.right = node.right;
         }
     }
 
@@ -90,6 +98,130 @@ public class BST<Key extends Comparable<Key>, Value> {
         } else
             return search(root.left, key);
 
+    }
+
+    //获取最小值
+    public Node getMinNode(){
+        return getMinNode(root);
+    }
+
+    //获取最大值
+    public Node getMaxNode(){
+        return getMaxNode(root);
+    }
+
+    //删除最小的节点
+    public void removeMinNode(){
+        root  = removeMinNode(root);
+    }
+
+    //删除最大的节点
+    public void removeMaxNode() {
+        root = removeMaxNode(root);
+    }
+
+    // 删除二分搜索树中键为key的节点
+    public void removeKeyNode(Key key){
+        root = removeKeyNode(root, key);
+    }
+
+    //#****移除指定key的节点
+    private Node removeKeyNode(Node node, Key key) {
+        //1，node为null，直接返回
+        if (node == null )
+            return null;
+
+
+        if (node.key.compareTo(key) > 0) {//2 如果node.key大于key的值，则去左子树继续寻找
+            //node.key > k 去左子树寻找
+            return removeKeyNode(node.left, key);
+        } else if (node.key.compareTo(key) < 0){//3 如果node.key小于key的值，则去右子树继续寻找
+            //node.key < k 去右子树寻找
+            return removeKeyNode(node.right, key);
+        } else { //4如果node.key等于key的值，则分下列情况讨论
+
+
+            if (node.left == null){ //1 node.left == null,就需要去右边找key并删除
+                Node rightNode = node.right;
+                node.right = null;
+                count --;
+                return rightNode;
+            } else  if (node.right == null){//2 node.right == null,就需要去左边找key并删除
+                Node leftNode = node.left;
+                node.left = null;
+                count --;
+                return leftNode;
+            } else {//2 左右子树均不为空，则用bibbard deletion算法来删除
+            /*
+                这儿是我写的，唯一的区别就是没有对k进行封装，暂未验证有没有问题 TODO
+                //4，node.key==key,则需要使用Hibbard Deletion算法来删除
+                //4.1 找到当前节点node的右孩子的最小节点k(根据二分搜索树的性质，node的左孩子的最大节点k也可以)，复制一份k并将k从原树中删除
+                Node k = getMinNode(node.right);
+                node = removeMinNode(node.right);
+
+                //4.2 将复制的节点k的右孩子指向n的右孩子，左孩子指向n的左孩子
+                k.right = node.right;
+                k.left = node.left;
+
+                //4.3 将node删除，将k返回
+                node.left = null;
+                node.right = null;
+                return k;*/
+
+                Node successor = new Node(getMinNode(node.right));
+                count ++;
+
+                successor.right = removeMinNode(node.right);//右子树是指向删除了自己右子树最小值的节点
+                successor.left = node.left;
+
+                node.left = node.right = null;
+                count --;
+                return successor;
+            }
+
+        }
+
+    }
+
+    private Node getMinNode(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+
+        return getMinNode(node.left);
+    }
+
+    private Node getMaxNode(Node node) {
+        if (node.right == null)
+            return node;
+
+        return getMaxNode(node.right);
+    }
+
+    //删除左孩子，假如左孩子！=null，继续递归；
+    // 假如左孩子等于null，那就将右边的子树返回即可
+    private Node removeMinNode(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node.right = null;
+            count --;
+            return rightNode;
+        }
+
+        node.left = removeMinNode(node.left);
+        return node;
+    }
+
+    private Node removeMaxNode(Node node) {
+        if (node.right == null) {
+            Node leftNode = node.left;
+            node.left = null;
+            count --;
+            return leftNode;
+        }
+
+        node.right = removeMaxNode(node.right);
+        return node;
     }
 
     //前、中、后序遍历每一次都是遍历到底，所以也称为深度优先遍历
