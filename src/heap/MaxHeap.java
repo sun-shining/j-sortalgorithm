@@ -9,6 +9,7 @@ public class MaxHeap<Item extends Comparable> {
     protected int count;
     protected int capacity;
 
+    //堆的经典实现根节点的元素下标都是从1开始的，所以在创建时数组容量要+1，0那个位置空着逻辑比较清晰
     public MaxHeap(int capacity){
         data = (Item[])new Comparable[capacity+1];
         this.count = 0;
@@ -68,7 +69,7 @@ public class MaxHeap<Item extends Comparable> {
         //2*K表示k的左孩子，如果有左孩子，表明没到叶子节点所在的层
         while ( 2*k <= count) {
             int j = 2*k;
-            //比较两个子节点大小，谁大，j就代表谁
+            //***比较两个子节点大小，谁大，j就代表谁
             if (j+1 <= count && data[j].compareTo(data[j+1]) < 0) {
                 j++;
             }

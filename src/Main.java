@@ -13,12 +13,15 @@ public class Main {
         String pid = name.split("@")[0];
         System.out.println("Pid is:" + pid);
 
+        int k = 0;
         while(true)
         {
             byte[] b = null;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++) {
                 b = new byte[1 * 1024 * 1024];
-
+                ++k;
+                System.out.println("~~~:"+k);
+            }
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {

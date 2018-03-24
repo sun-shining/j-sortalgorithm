@@ -51,7 +51,7 @@ public class QuickSort {
         SortUtils.swap4Int(l, k, a);
 
       int s = a[l];
-      int j = l;//a[l+1...j] <s, a[j+1...i]>s
+      int j = l;//a[l+1...j] <s, a[j+1...r]>s
 
       for (int i = l+1; i <= r; i++) {//i是每次循环考察的元素
           if (a[i] < s) {
