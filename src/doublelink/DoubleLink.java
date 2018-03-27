@@ -195,6 +195,7 @@ public class DoubleLink<T> implements Iterable<T> {
             @Override
             public T next() {
                 T data = temp.data;
+                //这一步是关键，为了保证迭代可以继续下去，需要重新将原temp的下一个节点赋值给temp
                 temp = temp.next;
                 if (flag != modCount) {
                     throw new ConcurrentModificationException("迭代过程不能修改");
@@ -245,5 +246,43 @@ public class DoubleLink<T> implements Iterable<T> {
             temp = temp.next;
         }
         return ms + "]";
+    }
+
+    public Node reverse1(DoubleLink<T> doubleLink) {
+
+        Node p = head, q = null, front = null;
+        while (p != null) {
+            q = p.next;//设置q是p结点的后继结点,即用q来保持p的后继结点
+            p.next = front;//逆转,即使p.next指向p结点的前驱结点
+            front = p;//front向后移一步
+            p = q;//p向后移一步
+        }
+        head = front;//head指向原链表的最后一个结点，完成逆转
+        return head;
+    }
+
+
+//    public Node reverse2(Node head) {
+//        // 当为空或者本节点为末尾节点的时候
+//        if (head == null || head.next == null)
+//            return head;
+//        Node temp = head.next;
+//        Node reversedHead = reverse2(head.next);
+//        // 获取先前的下一个节点，让该节点指向自身
+//        temp.next = head;
+//        // 破坏以前自己指向下一个节点
+//        head.next = null;
+//        // 层层传递给最上面的
+//        return reversedHead;
+//    }
+
+    public static void main(String[] args) {
+        DoubleLink<Integer> dl = new DoubleLink<Integer>();
+        dl.add(1);
+        dl.add(2);
+        dl.add(3);
+        System.out.println(dl.toString());
+        dl.reverse1(dl);
+        System.out.println(dl.toString());
     }
 }
