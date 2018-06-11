@@ -11,13 +11,13 @@ public class BST<Key extends Comparable<Key>, Value> {
         private Value value;
         private Node left, right;
 
-        public Node(Key key, Value value){
+        public Node(Key key, Value value) {
             this.key = key;
             this.value = value;
             left = right = null;
         }
 
-        public Node(Node node){
+        public Node(Node node) {
             this.key = node.key;
             this.value = node.value;
             this.left = node.left;
@@ -28,16 +28,16 @@ public class BST<Key extends Comparable<Key>, Value> {
     private Node root;//根节点
     private int count;//二分查找树中节点个数
 
-    public BST(){
+    public BST() {
         root = null;
         count = 0;
     }
 
-    public int size(){
+    public int size() {
         return count;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return count == 0;
     }
 
@@ -53,10 +53,10 @@ public class BST<Key extends Comparable<Key>, Value> {
             return new Node(key, value);
         }
 
-        if (key == node.key){
+        if (key == node.key) {
             node.value = value;
         } else if (key.compareTo(node.key) < 0) {//有个小疑问？这儿为什么不count++？ count不是元素个数，是节点个数
-            node.left = insert(node.left, key ,value);
+            node.left = insert(node.left, key, value);
         } else {
             node.right = insert(node.right, key, value);
         }
@@ -64,19 +64,19 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     //是否包含某key
-    boolean contain(Key key){
+    boolean contain(Key key) {
         return contain(root, key);
     }
 
     //某个根节点为node的树是否包含某key
     private boolean contain(Node node, Key key) {
-        if (node == null){
+        if (node == null) {
             return false;
         }
 
-        if (node.key == key){
+        if (node.key == key) {
             return true;
-        } else if(node.key.compareTo(key) < 0) {
+        } else if (node.key.compareTo(key) < 0) {
             return contain(node.left, key);
         } else {
             return contain(node.right, key);
@@ -101,18 +101,18 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     //获取最小值
-    public Node getMinNode(){
+    public Node getMinNode() {
         return getMinNode(root);
     }
 
     //获取最大值
-    public Node getMaxNode(){
+    public Node getMaxNode() {
         return getMaxNode(root);
     }
 
     //删除最小的节点
-    public void removeMinNode(){
-        root  = removeMinNode(root);
+    public void removeMinNode() {
+        root = removeMinNode(root);
     }
 
     //删除最大的节点
@@ -121,35 +121,38 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     // 删除二分搜索树中键为key的节点
-    public void removeKeyNode(Key key){
+    public void removeKeyNode(Key key) {
         root = removeKeyNode(root, key);
     }
 
     //#****移除指定key的节点
+    //有四种情况：1 删除节点本身为null 2 删除节点只有左孩子 3 删除节点只有右孩子 4 左右孩子都有
     private Node removeKeyNode(Node node, Key key) {
         //1，node为null，直接返回
-        if (node == null )
+        if (node == null)
             return null;
 
 
         if (node.key.compareTo(key) > 0) {//2 如果node.key大于key的值，则去左子树继续寻找
-            //node.key > k 去左子树寻找
-            return removeKeyNode(node.left, key);
-        } else if (node.key.compareTo(key) < 0){//3 如果node.key小于key的值，则去右子树继续寻找
+            //node.key > k 去左子树寻找,最后不管删除的节点在node节点左边的哪一层，还是要将node节点的左边一颗树都返回回去
+            node.left = removeKeyNode(node.left, key);
+            return node.left;
+        } else if (node.key.compareTo(key) < 0) {//3 如果node.key小于key的值，则去右子树继续寻找
             //node.key < k 去右子树寻找
-            return removeKeyNode(node.right, key);
+            node.right = removeKeyNode(node.right, key);
+            return node.right;
         } else { //4如果node.key等于key的值，则分下列情况讨论
 
 
-            if (node.left == null){ //1 node.left == null,就需要去右边找key并删除
+            if (node.left == null) { //1 node.left == null,就需要去右边找key并删除
                 Node rightNode = node.right;
                 node.right = null;
-                count --;
+                count--;
                 return rightNode;
-            } else  if (node.right == null){//2 node.right == null,就需要去左边找key并删除
+            } else if (node.right == null) {//2 node.right == null,就需要去左边找key并删除
                 Node leftNode = node.left;
                 node.left = null;
-                count --;
+                count--;
                 return leftNode;
             } else {//2 左右子树均不为空，则用bibbard deletion算法来删除
             /*
@@ -168,14 +171,14 @@ public class BST<Key extends Comparable<Key>, Value> {
                 node.right = null;
                 return k;*/
 
-                Node successor = new Node(getMinNode(node.right));
-                count ++;
+                Node successor = new Node(getMinNode(node.right));//找到替代node节点的节点，要么是node节点左子树的最大值，要么是右子树的最小值
+                count++;
 
                 successor.right = removeMinNode(node.right);//右子树是指向删除了自己右子树最小值的节点
                 successor.left = node.left;
 
                 node.left = node.right = null;
-                count --;
+                count--;
                 return successor;
             }
 
@@ -200,11 +203,12 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     //删除左孩子，假如左孩子！=null，继续递归；
     // 假如左孩子等于null，那就将右边的子树返回即可
+    //返回删除了node所在树中最小值之后的新的node节点
     private Node removeMinNode(Node node) {
         if (node.left == null) {
             Node rightNode = node.right;
             node.right = null;
-            count --;
+            count--;
             return rightNode;
         }
 
@@ -216,7 +220,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (node.right == null) {
             Node leftNode = node.left;
             node.left = null;
-            count --;
+            count--;
             return leftNode;
         }
 
@@ -227,21 +231,23 @@ public class BST<Key extends Comparable<Key>, Value> {
     //前、中、后序遍历每一次都是遍历到底，所以也称为深度优先遍历
     //而与之对应的每次都先把没一层的元素遍历出来的操作就是广度优先遍历
     //对二叉搜索树进行前序遍历，顺便打印出结果
-    public void preOrder(){
+    public void preOrder() {
         preOrder(root);
     }
+
     //对二叉搜索树进行中序遍历，顺便打印出结果
     //因为二叉查找树有左子树元素大于右子树元素的性质，所以，中序遍历可以用左二分查找树的排序
-    public void inOrder(){
+    public void inOrder() {
         inOrder(root);
     }
+
     //对二叉搜索树进行后序遍历，顺便打印出结果
-    public void afterOrder(){
+    public void afterOrder() {
         afterOrder(root);
     }
 
     //层优先遍历，也叫做广度优先遍历
-    public void levelOrder(){
+    public void levelOrder() {
 
         LinkedList<Node> linkedList = new LinkedList<Node>();
 
@@ -290,6 +296,28 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
     }
 
+    /**
+     * 求二叉树的最大深度，使用递归算法
+     *
+     * @return
+     */
+    public int depth() {
+        return depth(root);
+    }
+
+    public int depth(Node node) {
+        if (node == null) {
+            return 0;
+        }
+
+        if (node == root) {
+            return 1;
+        }
+        int left_level = depth(node.left);
+        int right_level = depth(node.right);
+        return left_level >= right_level ? left_level + 1 : right_level + 1;
+    }
+
     // 测试二分搜索树
     public static void main(String[] args) {
 
@@ -297,12 +325,12 @@ public class BST<Key extends Comparable<Key>, Value> {
 
         // 创建一个数组，包含[0...N)的所有元素
         Integer[] arr = new Integer[N];
-        for(int i = 0 ; i < N ; i ++)
+        for (int i = 0; i < N; i++)
             arr[i] = new Integer(i);
 
         // 打乱数组顺序
-        for(int i = 0 ; i < N ; i ++){
-            int pos = (int) (Math.random() * (i+1));
+        for (int i = 0; i < N; i++) {
+            int pos = (int) (Math.random() * (i + 1));
             Integer t = arr[pos];
             arr[pos] = arr[i];
             arr[i] = arr[pos];
@@ -316,8 +344,8 @@ public class BST<Key extends Comparable<Key>, Value> {
 
         // 我们测试用的的二分搜索树的键类型为Integer，值类型为String
         // 键值的对应关系为每个整型对应代表这个整型的字符串
-        BST<Integer,String> bst = new BST<Integer,String>();
-        for(int i = 0 ; i < N ; i ++)
+        BST<Integer, String> bst = new BST<Integer, String>();
+        for (int i = 0; i < N; i++)
             bst.insert(new Integer(arr[i]), Integer.toString(arr[i]));
 
         // 对[0...2*N)的所有整型测试在二分搜索树中查找

@@ -17,7 +17,7 @@ public class MaxHeap<Item extends Comparable> {
     }
 
     //happify:指直接将整个数组值复制到堆中，再一次性调整元素的位置
-    //从第一个非叶子节点（即没有孩子的节点，为count/2位置）开始就行shirtDown操作即可，
+    //从第一个非叶子节点（即没有孩子的节点，为count/2位置）开始进行shirtDown操作即可，
     //到根节点下一层，即第一层即可停止
     public MaxHeap(Item[] array, int n) {
         data = (Item[]) new Comparable[n+1];

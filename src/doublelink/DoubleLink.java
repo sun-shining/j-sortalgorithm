@@ -1,13 +1,11 @@
 package doublelink;
 
-import com.sun.tools.javac.util.Assert;
-
 import java.util.ConcurrentModificationException;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 
 /**
- * 我理解双向链表或者单项链表的任何操作，其实考察的都是受到影响的节点的前、后两个位置如何安置。考虑清楚了，问题就解决了
+ * 我理解双向链表或者单向链表的任何操作，其实考察的都是受到影响的节点的前、后两个位置如何安置。考虑清楚了，问题就解决了
  * 当然，涉及到head和tail需要另外考虑。
  *
  * @param <T>
@@ -23,7 +21,7 @@ public class DoubleLink<T> implements Iterable<T> {
 
     private Node head;//最左边的那个节点就是head
     private Node tail;//最右边的那个节点就是tail
-    private int modCount;//作为迭代时的标志，迭代时如果发生对原链表中数据就行修改操作时，抛并发修改异常
+    private int modCount;//作为迭代时的标志，迭代时如果发生对原链表中数据进行修改操作时，抛并发修改异常
 
     /**
      * 向链表尾部添加数据
@@ -38,9 +36,8 @@ public class DoubleLink<T> implements Iterable<T> {
         if (head == null) {//如果没有头，肯定也没有尾；第一个节点加入时，头尾则都是新节点
             head = newNode;
             tail = newNode;
-        } else {
+        } else {//此句其实就可以表明tail就是最后一个节点，
             newNode.prev = tail;
-            //**
             tail.next = newNode;
             tail = newNode;
         }
@@ -82,7 +79,7 @@ public class DoubleLink<T> implements Iterable<T> {
         Node node = find(data);
         //2找到了继续
         if (node != null) {
-            //3如果节点前后节点都是空的，证明
+            //3如果节点前后节点都是空的，证明node即是头又是尾巴，链表里就一个节点
             if (node.prev == null && node.next == null) {
                 head = null;
                 tail = null;
@@ -90,7 +87,7 @@ public class DoubleLink<T> implements Iterable<T> {
                 //把node的下一个节点的前置置空；把node的下一节点变成头
                 node.next.prev = null;
                 head = node.next;
-            } else if (node.next == null) {
+            } else if (node.next == null) {//同理后面一个节点是null，证明是尾节点
                 node.prev.next = null;
                 tail = node.prev;
             } else {
@@ -122,6 +119,7 @@ public class DoubleLink<T> implements Iterable<T> {
             head = node;
         }
         modCount++;
+
     }
 
     /**
@@ -150,7 +148,7 @@ public class DoubleLink<T> implements Iterable<T> {
 
     /**
      * 从链表中查找一个元素
-     *
+     * 时间复杂度是 O（n）级别的
      * @param data
      * @return
      */

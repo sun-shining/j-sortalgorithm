@@ -30,7 +30,7 @@ public class QuickSort {
     //对a[l,r] 左闭右闭 进行快速排序
     private static void sort(int[] a, int l, int r) {
 //        if (l >= r) return;
-        //优化1 当需要排序的熟练小时，还是用插入排序
+        //优化1 当需要排序的数量小时，还是用插入排序
         if (r-l <=15){
             InsertionSort.sort(a, l, r);
             return;
@@ -46,7 +46,7 @@ public class QuickSort {
     // 对arr[l...r]部分进行partition操作
     // 返回j, 使得arr[l...j-1] < arr[j] ; arr[j+1...r] > arr[j]
     private static int partition(int[] a, int l, int r) {
-        //***优化二，如果直接选取最左边的元素，可能选到最小的元素，将a[l]的值随机化
+        //***优化二，如果直接选取最左边的元素做为标尺，可能选到最小的元素，将a[l]的值随机化
         int k = (int)(Math.random()*(r-l+1)) + l;
         SortUtils.swap4Int(l, k, a);
 
