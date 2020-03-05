@@ -17,7 +17,7 @@ public class MergeSort {
     }
 
     /**
-     * 思路是用二分发，将一个数组，一分为二（分成的两部分，因为可以使用递归到没边只有一个元素，所以，分成的两边就是排好序的），再合并
+     * 思路是用二分发，将一个数组，一分为二（分成的两部分，因为可以使用递归到每边只有一个元素，所以，分成的两边就是排好序的），再合并
      * 自顶向下的核心在合并，因为最后数组被分成一个个的元素，关键在将任意两个有序的子序列合并
      * @param array
      * @param n
@@ -51,6 +51,8 @@ public class MergeSort {
         for (int i = l; i <= r; i++) {//i是从l开始的，所以复制原数组时，需要注意这个偏移
             aux[i-l] = array[i];
         }
+
+        //System.arraycopy(array, l, aux, 0, r-l+1);
 
         int i = l, j = mid+1;
         for (int k = l; k <= r; k++) {

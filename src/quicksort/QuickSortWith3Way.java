@@ -29,7 +29,7 @@ public class QuickSortWith3Way {
         //如此选三个指针的初始值是为了保证循环未开始前，三个范围内都没有元素
         int lt = l; // array[l+1...lt]<v
         int gt = r+1; // array[gt...r]>v
-        int i = l+1; // array[lt...i)==v
+        int i = l+1; // array[lt+1...i)==v
         while (i < gt) {
             if (array[i] < v) {
                 SortUtils.swap4Int(i, lt+1, array);

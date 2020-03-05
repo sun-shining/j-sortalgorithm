@@ -23,15 +23,25 @@ public class BuddleSort {
 
     public static void sort(int[] array) {
         int i,j,temp, n = array.length;
+        if (n <= 1)
+            return;
+        //如果看到有些i<n 的，其实也无所谓，因为j需要比的最后两个元素就是j=0、1的时候，当j=1时i=n-2就足矣，再小其实也是浪费
         for (i = 0; i < n-1; i++) {
+            //提前退出标志
+            boolean flag = false;
             for (j = 0; j < n-1-i ; j++) {
                 if (array[j] > array[j+1]) {
                     temp = array[j];
                     array[j] = array[j + 1];
                     array[j + 1] = temp;
-                }
 
+                    //有数据交换则标识为true
+                    flag = true;
+                }
             }
+            //无数据交换可以提前退出
+            if (!flag)
+                break;
         }
     }
 

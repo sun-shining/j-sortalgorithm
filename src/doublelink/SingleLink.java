@@ -19,6 +19,7 @@ public class SingleLink<T> {
 
     }
 
+    //head是空节点，不存放数据
     private Node head = new Node();
 
     public boolean add(T data) {
@@ -41,6 +42,8 @@ public class SingleLink<T> {
 
     /**
      * 删除已知节点
+     * 删除时需要注意，因为单向链表没发操作前一个节点，所以巧妙的利用下一个节点和下下个节点进行替换
+     * 利用待删除节点的下一个节点，将待删除节点的data和next都指向下下个节点
      * @param node
      * @return
      */

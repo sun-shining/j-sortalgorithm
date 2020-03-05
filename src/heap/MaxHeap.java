@@ -30,6 +30,8 @@ public class MaxHeap<Item extends Comparable> {
         count = n;
 
         //i为什么到1就可以啦，因为shiftDown会和根节点的元素进行比较的。
+        //为什么从count/2开始？保证每一个小分支都满足最大堆性质，那就的从最后一个非空的叶子节点的父节点开始
+        //注意：用数组构建最大堆，顶节点对应数组中的索引从1开始，这是经典的实现，也可以从0开始
         for (int i = count/2; i >=1; i--) {
             shiftDown(i);
         }
@@ -82,6 +84,18 @@ public class MaxHeap<Item extends Comparable> {
 
         }
 
+    }
+
+    private void shiftDown2(int k) {
+        while (2*k<=count) {
+            int j = 2*k;
+            if (j+1 <= count && data[j].compareTo(data[j+1]) < 0) {
+                j++;
+            }
+            if (data[k].compareTo(data[j]) > 0)break;
+            swap(j, k);
+            k = j;
+        }
     }
 
     private void swap(int i , int j) {
