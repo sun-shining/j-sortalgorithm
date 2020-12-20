@@ -1,5 +1,6 @@
 package inserttionsort;
 
+import java.util.concurrent.TimeUnit;
 import selectionsort.SelectionSort;
 import utils.SortFlagInterface;
 import utils.SortUtils;
@@ -93,7 +94,7 @@ public class InsertionSort implements SortFlagInterface {
         System.err.println();
 //        new InsertionSort().sort(a, 10);
         InsertionSort.insertSort2(a);
-        Thread.sleep(100);
+        TimeUnit.MILLISECONDS.sleep(100);
         SortUtils.printArray(a);
 //        int a[] = SortUtils.generateRandomIntArray(50000, 0, 100000);
 //        new InsertionSort().sort(a, 50000);

@@ -1,6 +1,7 @@
 import java.lang.management.ManagementFactory;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 //测试测试jinfo命令修改虚拟机参数，以 PrintGC PrintGCDetails PrintGCTimeStamp 来测试de
 public class Main {
@@ -23,7 +24,7 @@ public class Main {
                 System.out.println("~~~:"+k);
             }
             try {
-                Thread.sleep(5000);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
