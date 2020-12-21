@@ -9,7 +9,7 @@ public class HeapSort1 {
 
     private HeapSort1(){};
 
-    //先构建最大堆，再利用堆的性质依次取出对应元素并放入数组完成排序
+    //先构建最小堆，再利用堆的性质依次取出对应元素并放入数组完成排序
     public static void sort(Comparable[] array , int n ){
 //        MaxHeap<Comparable> maxHeap = new MaxHeap<Comparable>(n);
         MinHeap<Comparable> minHeap = new MinHeap<Comparable>(20);
