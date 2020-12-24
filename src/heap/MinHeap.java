@@ -1,7 +1,11 @@
 package heap;
 
-//经典的堆的实现，数组下标是从1开始的
-//堆的性质就是，父节点与子节点之间有大小关系
+/**
+ *  经典的堆的实现，数组下标是从1开始的
+ *  堆的性质就是，父节点与子节点之间有大小关系
+ *  data[k]<=data[2*k+1] && data[k]<=data[2k*2]
+ *  只有这一条性质，不考虑兄弟节点之间的关系
+ **/
 public class MinHeap<Item extends Comparable> {
 
     protected Item[] data;
