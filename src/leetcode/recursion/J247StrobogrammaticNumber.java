@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 递归的解题步骤： 1.完整性检查：判断输入的参数是否合法 2.判断递归是否应该结束 3.缩小问题规模 4.整合结果
- * <a href="{https://www.cnblogs.com/grandyang/p/5200919.html">
+ * 题目参考地址<a href="{https://www.cnblogs.com/grandyang/p/5200919.html">
  * n = 0:   none
  *
  * n = 1:   0, 1, 8
@@ -19,7 +19,7 @@ import java.util.List;
 public class J247StrobogrammaticNumber {
 
     public static void main(String[] args) {
-        List<String> helper = helper(4, 4);
+        List<String> helper = helper(2, 2);
         System.out.println(helper);
     }
 
