@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class J247StrobogrammaticNumber {
 
-    public static void main(String[] args) {
+    public  static void main(String[] args) {
         List<String> helper = helper(2, 2);
         System.out.println(helper);
     }
@@ -49,7 +49,7 @@ public class J247StrobogrammaticNumber {
         for (int i = 0; i < list.size(); i++) {
             String s = list.get(i);
 
-            if (n != m) {
+            if (n != m) {//相等时证明到边儿了，0开头就是非法的了
                 res.add("0" + s + "0");
             }
             res.add("1" + s + "1");
