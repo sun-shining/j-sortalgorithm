@@ -4,8 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 1.互斥条件
- * 2.
- * 3.循环依赖
+ * 2.不可剥夺条件
+ * 3.请求和保持条件
+ * 4.循环等待条件
  * @Author dasongju
  * @Date 2021/1/20 21:54
  */
