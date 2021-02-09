@@ -21,6 +21,8 @@ public class DeadLockWithSynchronized{
     public static void main(String[] args) {
         String lock1 = "lockA";
         String lock2 = "lockB";
+        System.out.println("Runtime.getRuntime().availableProcessors() = " + Runtime.getRuntime()
+            .availableProcessors());
         new Thread(()->{
             synchronized (lock1) {
                 System.out.println(Thread.currentThread().getName() + " get lock1 = " + lock1);

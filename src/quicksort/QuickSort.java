@@ -71,27 +71,27 @@ public class QuickSort {
     /**
      * 两路快速排序，适合解决存在大量重复元素的情况
      *
-     * @param a 待排序数据
-     * @param l 数组左边界
-     * @param r 数组右边界
+     * @param nums 待排序数据
+     * @param left 数组左边界
+     * @param right 数组右边界
      * @return 新标尺应该在的位置
      */
-    private static int partition2(int[] a, int l, int r) {
-        int k = (int) (Math.random() * (r - l + 1)) + l;
-        SortUtils.swap4Int(l, k, a);
-        int s = a[l];
+    private static int partition2(int[] nums, int left, int right) {
+        int k = (int) (Math.random() * (right - left + 1)) + left;
+        SortUtils.swap4Int(left, k, nums);
+        int s = nums[left];
 
-        int i = l + 1, j = r;
+        int i = left + 1, j = right;
         while (true) {
-            while (i <= r && a[i] < s) i++;
-            while (j >= l + 1 && a[j] > s) j--;
+            while (i <= right && nums[i] < s) i++;
+            while (j >= left + 1 && nums[j] > s) j--;
             if (i > j) break;
-            SortUtils.swap4Int(i, j, a);
+            SortUtils.swap4Int(i, j, nums);
             i++;
             j--;
         }
 
-        SortUtils.swap4Int(l, j, a);
+        SortUtils.swap4Int(left, j, nums);
         return j;
     }
 
